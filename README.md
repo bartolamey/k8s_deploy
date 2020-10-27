@@ -1,6 +1,15 @@
-1. Push изменений на github							ok
-2. webhooks в jenkins 								ok
-3. Скачивание изминений								ok		
-4. Cоздание docker образа                           ok
-5. Push образа на dockerhub                         ok 
-6. Deploy minikube
+ТЗ:
+
+Настроить CI/CI pipelines
+
+Инструменты:
+    - k8s minikube
+    - helm
+    - jenkins или GitLab CI/CD
+    - docker
+    - Git
+
+Требования:
+    - Развернутый в k8s проект должен возвращать html страницу.
+    - По пушу изменений в Git должны срабатывать CI/CI pipelines, которые будут доставлять изменеия в k8s minikube
+    - Результат работы предоставить в формате видеоотчета
