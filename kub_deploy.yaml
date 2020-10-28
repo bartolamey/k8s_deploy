@@ -1,7 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata: 
-  name: my-web
+  name: html_deploy
+  labels:
+    env  : test
+    owner: Bartoshuk_Vadim
 spec:
   containers:
     - name : container-apache
