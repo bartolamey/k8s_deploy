@@ -4,20 +4,18 @@ pipeline {
     stages {
         stage('Deploy') {
             steps {
-                echo "---------------------------add build id--------------------------------"
-                echo "v0.$BUILD_ID" >> www/index.html
-            }
-            steps {
                 echo "--------------------------Version v0.$BUILD_ID-------------------------"
-                sh docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile .
+                dir ('Docker'){
+                    sh 'docker build -t bartolamey/kub_deploy:v0.$BUILD_ID .'
+                }               
             }
             steps {
                 echo "---------------------------Docker PUSH----------------------------------"
-                sh docker push bartolamey/kub_deploy:v0.$BUILD_ID
+                sh 'docker push bartolamey/kub_deploy:v0.$BUILD_ID'
             }
             steps {
                 echo "--------------------------Deploy K8s-----------------------------------"
-                sh kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID
+                sh 'kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID'
             }
 
         }
