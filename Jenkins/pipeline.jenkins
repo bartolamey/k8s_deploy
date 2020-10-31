@@ -2,16 +2,28 @@ pipeline {
     agent any
 
     stages {
+        stage('add build ver') {
+            steps {
+                echo "--------------------------Deploy K8s-----------------------------------"
+                sh "echo "v0.$BUILD_ID" >> www/index.html"
+            }
+        }
         stage('Build') {
             steps {
-                echo "--------------------------Docker BUILD----------------------------"
+                echo "--------------------------Docker BUILD----------------------------------"
                 sh "docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile ."
             }
         }
-         stage('Push') {
+        stage('Push') {
             steps {
-                echo "---------------------------Docker PUSH------------------------------"
+                echo "---------------------------Docker PUSH----------------------------------"
                 sh "docker push bartolamey/kub_deploy:v0.$BUILD_ID"
+            }
+        }
+        stage('Push') {
+            steps {
+                echo "--------------------------Deploy K8s------------------------------------"
+                sh "kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID"
             }
         }
     }
