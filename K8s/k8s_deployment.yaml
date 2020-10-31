@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name : k8s-html
-          image: bartolamey/kub_deploy:latest
+          image: bartolamey/kub_deploy
           ports:
             - containerPort: 80
 
