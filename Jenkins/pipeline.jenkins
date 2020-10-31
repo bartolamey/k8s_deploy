@@ -5,6 +5,7 @@ pipeline {
         stage('Hello') {
             steps {
                 echo "--------------------------Docker BUILD----------------------------"
+                sh "docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile ."
             }
         }
     }
