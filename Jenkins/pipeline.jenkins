@@ -7,7 +7,6 @@ pipeline {
                 echo "--------------------------Version v0.$BUILD_ID----------------------------"
                 sh 'docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile .'
                 }               
-            }
             steps {
                 echo "---------------------------Docker PUSH----------------------------------"
                 sh 'docker push bartolamey/kub_deploy:v0.$BUILD_ID'
@@ -16,7 +15,6 @@ pipeline {
                 echo "--------------------------Deploy K8s-----------------------------------"
                 sh 'kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID'
             }
-
         }
     }
 }
