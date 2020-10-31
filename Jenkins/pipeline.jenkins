@@ -1,6 +1,7 @@
+#!groovy
 pipeline{
     agent{
-        label "main"
+        label 'main'
     }
     stages{
         stage("Deploy"){
