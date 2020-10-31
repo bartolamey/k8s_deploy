@@ -2,13 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Build') {
             steps {
                 echo "--------------------------Docker BUILD----------------------------"
                 sh "docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile ."
             }
+        }
+         stage('Push') {
             steps {
-                echo "--------------------------Docker BUILD----------------------------"
+                echo "---------------------------Docker PUSH------------------------------"
                 sh "docker push bartolamey/kub_deploy:v0.$BUILD_ID"
             }
         }
