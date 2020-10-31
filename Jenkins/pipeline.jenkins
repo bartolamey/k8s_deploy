@@ -20,7 +20,7 @@ pipeline {
                 sh "docker push bartolamey/kub_deploy:v0.$BUILD_ID"
             }
         }
-        stage('Push') {
+        stage('Deploy') {
             steps {
                 echo "--------------------------Deploy K8s------------------------------------"
                 sh "kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID"
