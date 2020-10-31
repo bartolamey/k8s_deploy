@@ -9,15 +9,15 @@ pipeline {
             }
             steps {
                 echo "--------------------------Version v0.$BUILD_ID-------------------------"
-                docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile .
+                sh docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile .
             }
             steps {
                 echo "---------------------------Docker PUSH----------------------------------"
-                docker push bartolamey/kub_deploy:v0.$BUILD_ID
+                sh docker push bartolamey/kub_deploy:v0.$BUILD_ID
             }
             steps {
                 echo "--------------------------Deploy K8s-----------------------------------"
-                kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID
+                sh kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID
             }
 
         }
