@@ -1,12 +1,10 @@
-#!groovy
-pipeline{
-    agent{
-        label 'main'
-    }
-    stages{
-        stage("Deploy"){
-            steps{
-                echo "========add build number========"
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
             }
         }
     }
