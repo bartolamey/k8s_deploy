@@ -7,6 +7,10 @@ pipeline {
                 echo "--------------------------Docker BUILD----------------------------"
                 sh "docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile ."
             }
+            steps {
+                echo "--------------------------Docker BUILD----------------------------"
+                sh "docker push bartolamey/kub_deploy:v0.$BUILD_ID"
+            }
         }
     }
 }
