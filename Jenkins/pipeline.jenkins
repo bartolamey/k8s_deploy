@@ -2,10 +2,24 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Deploy') {
             steps {
-                echo 'Hello World'
+                echo "---------------------------add build id--------------------------------"
+                echo "v0.$BUILD_ID" >> www/index.html
             }
+            steps {
+                echo "--------------------------Version v0.$BUILD_ID-------------------------"
+                docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile .
+            }
+            steps {
+                echo "---------------------------Docker PUSH----------------------------------"
+                docker push bartolamey/kub_deploy:v0.$BUILD_ID
+            }
+            steps {
+                echo "--------------------------Deploy K8s-----------------------------------"
+                kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID
+            }
+
         }
     }
 }
