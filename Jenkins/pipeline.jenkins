@@ -4,9 +4,8 @@ pipeline {
     stages {
         stage('Deploy') {
             steps {
-                echo "--------------------------Version v0.$BUILD_ID-------------------------"
-                dir ('Docker'){
-                    sh 'docker build -t bartolamey/kub_deploy:v0.$BUILD_ID .'
+                echo "--------------------------Version v0.$BUILD_ID----------------------------"
+                sh 'docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile .'
                 }               
             }
             steps {
