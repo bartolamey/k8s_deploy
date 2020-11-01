@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage('Connect to K8s') {
+            steps {
+                echo "--------------------------Connect to K8s-----------------------------------"
+                sh 'gcloud container clusters get-credentials k8s-deploy'
+            }
+        }
         stage('add build ver') {
             steps {
                 echo "--------------------------Deploy K8s-----------------------------------"
@@ -25,6 +31,20 @@ pipeline {
                 echo "--------------------------Deploy K8s------------------------------------"
                 sh "kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID"
             }
+        }
+    }
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+            mail to: '7987575@gmail.com',
+            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+            body: "Something is wrong with ${env.BUILD_URL}"
+        }
+        failure{
+            echo "========pipeline execution failed========"
         }
     }
 }
