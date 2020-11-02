@@ -11,7 +11,7 @@ pipeline {
         stage('add build ver') {
             steps {
                 echo "--------------------------Deploy K8s-----------------------------------"
-                sh 'echo "<H2>v0.$BUILD_ID</H2>" >> www/index.html'
+                sh 'echo "<H2 align="center">v0.$BUILD_ID</H2>" >> www/index.html'
             }
         }
         stage('Build') {
