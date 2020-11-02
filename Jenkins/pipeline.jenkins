@@ -2,33 +2,25 @@ pipeline {
     agent any
 
     stages {
-        stage('Connect to K8s') {
+        stage('Training') {
             steps {
                 echo "--------------------------Connect to K8s-----------------------------------"
                 sh 'gcloud container clusters get-credentials k8s-deploy'
-            }
-        }
-        stage('add build ver') {
-            steps {
-                echo "--------------------------Deploy K8s-----------------------------------"
+
+                echo "--------------------------Deploy K8s----------------------------------------"
                 sh 'echo "<H2 align="center">v0.$BUILD_ID</H2>" >> www/index.html'
             }
         }
         stage('Build') {
             steps {
-                echo "--------------------------Docker BUILD----------------------------------"
+                echo "--------------------------Docker BUILD--------------------------------------"
                 sh "docker build -t bartolamey/kub_deploy:v0.$BUILD_ID -f Docker/Dockerfile ."
-            }
-        }
-        stage('Push') {
-            steps {
-                echo "---------------------------Docker PUSH----------------------------------"
                 sh "docker push bartolamey/kub_deploy:v0.$BUILD_ID"
             }
         }
         stage('Deploy') {
             steps {
-                echo "--------------------------Deploy K8s------------------------------------"
+                echo "--------------------------Deploy K8s----------------------------------------"
                 sh "kubectl set image deployment/html-deployment k8s-html=bartolamey/kub_deploy:v0.$BUILD_ID"
             }
         }
