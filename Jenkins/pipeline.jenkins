@@ -1,5 +1,10 @@
+
+properties([disableConcurrentBuilds()])
+
 pipeline {
-    agent any
+    agent {
+        label 'main'
+    }
 
     stages {
         stage('Training') {
